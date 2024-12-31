@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
@@ -10,6 +11,7 @@ use App\Traits\HasImage;
 use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -37,7 +39,13 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        $products = Product::get();
+
+        $categories = Category::get();
+
+        $suppliers = Supplier::get();
+
+        return view('admin.order.create', compact('products', 'categories', 'suppliers'));
     }
 
     /**
@@ -46,9 +54,23 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $product = Product::find($request->product_id);
+        $product->update([
+            'quantity' => $product->quantity + $request->quantity,
+        ]);
+
+        Order::create([
+            'user_id' => Auth::id(),
+            'name' => $product->name,
+            'quantity' => $request->quantity,
+            'status' => OrderStatus::Done,
+            'image' => basename($product->image),
+            'unit' => $product->unit,
+        ]);
+
+        return redirect((route('admin.order.index')))->with('toast_success', 'Permintaan Barang Berhasil Ditambahkan');
     }
 
     /**
@@ -115,6 +137,15 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $order = Order::find($id);
+        $product = Product::where('name', $order->name)->first();
+
+        $product->update([
+            'quantity' => max($product->quantity - $order->quantity, 0),
+        ]);
+
+        $order->delete();
+
+        return redirect((route('admin.order.index')))->with('toast_success', 'Permintaan Barang Berhasil Dihapus');
     }
 }

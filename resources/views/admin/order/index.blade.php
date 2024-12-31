@@ -3,6 +3,9 @@
 @section('content')
     <x-container>
         <div class="col-12">
+            @can('create-order')
+                <x-button-link title="Tambah Permintaan Barang" icon="plus" class="btn btn-primary mb-3" style="mr-1" :url="route('admin.order.create')" />
+            @endcan
             <x-card title="DAFTAR PERMINTAAN BARANG" class="card-body p-0">
                 <x-table>
                     <thead>
@@ -32,6 +35,10 @@
                                     {{ $order->status->value }}
                                 </td>
                                 <td>
+                                    @can('delete-order')
+                                        <x-button-delete :id="$order->id" :url="route('admin.order.destroy', $order->id)" title=""
+                                                         class="btn btn-danger btn-sm" />
+                                    @endcan
                                     @if ($order->status == App\Enums\OrderStatus::Pending)
                                         <form action="{{ route('admin.order.update', $order->id) }}" method="POST">
                                             @csrf

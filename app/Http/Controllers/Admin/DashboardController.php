@@ -26,7 +26,7 @@ class DashboardController extends Controller
     {
         $categories = Category::count();
 
-        $vehicles = Vehicle::count();
+//        $vehicles = Vehicle::count();
 
         $suppliers = Supplier::count();
 
@@ -65,6 +65,6 @@ class DashboardController extends Controller
             $total[] = '';
         }
 
-        return view('admin.dashboard', compact('categories', 'vehicles', 'suppliers', 'products', 'customers', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'label', 'total'));
+        return view('admin.dashboard', compact('categories', 'suppliers', 'products', 'customers', 'transactions', 'transactionThisMonth', 'productsOutStock', 'orders', 'label', 'total'));
     }
 }
