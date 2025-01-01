@@ -55,8 +55,19 @@
                                                     @csrf
                                                     @method('PUT')
                                                     <input
-                                                        class="w-16 border px-2 py-0.5 rounded focus:outline-none focus:ring-2 focus:ring-sky-600"
-                                                        value="{{ $cart->quantity }}" type="number" name="quantity" />
+                                                            class="w-16 border px-2 py-0.5 rounded focus:outline-none focus:ring-2 focus:ring-sky-600 hidden"
+                                                            value="{{ $cart->quantity - 1 }}" type="number" name="quantity" />
+                                                    <x-button-save icon="add" type="submit" title="- Min"
+                                                                   class="btn btn-success btn-sm" />
+                                                </form>
+                                                <form action="{{ route('cart.update', $cart->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input
+                                                            class="w-16 border px-2 py-0.5 rounded focus:outline-none focus:ring-2 focus:ring-sky-600 hidden"
+                                                            value="{{ $cart->quantity + 1 }}" type="number" name="quantity" />
+                                                    <x-button-save icon="add" type="submit" title="+ Add"
+                                                                     class="btn btn-success btn-sm" />
                                                 </form>
                                             </td>
                                         @empty
