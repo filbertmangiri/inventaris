@@ -12,6 +12,7 @@
                             <th>Nama Produk</th>
                             <th>Kategori Produk</th>
                             <th>Kuantitas</th>
+                            <th>Waktu</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,6 +35,7 @@
                                         <li>{{ $details->quantity }} - {{ $details->product->unit }}</li>
                                     @endforeach
                                 </td>
+                                <td>{{ \Carbon\Carbon::parse($transaction->created_at)->format('d F Y, H:i:s') }}</td>
                             </tr>
                         @endforeach
                         <tr>

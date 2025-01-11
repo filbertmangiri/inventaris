@@ -15,6 +15,7 @@
                             <th>Nama Barang</th>
                             <th>Kuantitas</th>
                             <th>Satuan</th>
+                            <th>Waktu</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -30,6 +31,7 @@
                                 <td>{{ $order->name }}</td>
                                 <td>{{ $order->quantity }}</td>
                                 <td>{{ $order->unit }}</td>
+                                <td>{{ \Carbon\Carbon::parse($order->created_at)->format('d F Y, H:i:s') }}</td>
                                 <td
                                     class="{{ $order->status == App\Enums\OrderStatus::Pending ? 'text-danger' : 'text-success' }}">
                                     {{ $order->status->value }}
