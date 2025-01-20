@@ -38,7 +38,7 @@ class DashboardController extends Controller
 
         $transactionThisMonth = TransactionDetail::whereMonth('created_at', date('m'))->sum('quantity');
 
-        $productsOutStock = Product::where('quantity', '<=', 10)->paginate(5);
+        $productsOutStock = Product::where('quantity', '<=', 10)->orWhere('quantity', '>=', 1000)->paginate(5);
 
         $orders = Order::where('status', 0)->get();
 

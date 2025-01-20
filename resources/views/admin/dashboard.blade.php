@@ -122,7 +122,7 @@
         
         
         <div class="col-12 col-lg-6">
-            <x-card title="List Barang dengan stok kurang dari 10">
+            <x-card title="Alarm Stok">
                 <div class="list list-row list-hoverable">
                     @foreach ($productsOutStock as $product)
                         <div class="list-item">
