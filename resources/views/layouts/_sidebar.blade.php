@@ -285,8 +285,8 @@
                             </span>
                         </a>
                     </li>
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.report') }}">
+                     <li class="nav-item">
+                        <a class="nav-link {{ Route::is('admin.report*') ? 'active' : '' }}" href="{{ route('admin.report') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block mr-1">
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     class="icon icon-tabler icon-tabler-file-analytics" width="24" height="24"
@@ -305,7 +305,7 @@
                                 Laporan
                             </span>
                         </a>
-                    </li> --}}
+                    </li>
                     <div class="hr-text hr-text-left ml-2 mb-2 mt-2">Transaksi</div>
                     <li class="nav-item">
                         <a class="nav-link {{ Route::is('admin.order*') ? 'active' : '' }}"

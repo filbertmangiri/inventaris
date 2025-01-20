@@ -89,9 +89,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
         Route::get('/transaction/vehicle', 'vehicle')->name('transaction.vehicle');
     });
 
-    // Route::controller(ReportController::class)->group(function(){
-    //     Route::get('/report', 'index')->name('report');
-    // });
+     Route::controller(ReportController::class)->group(function(){
+         Route::get('/report', 'index')->name('report');
+     });
 
     Route::controller(SettingController::class)->group(function(){
         Route::get('/setting', 'index')->name('setting.index');

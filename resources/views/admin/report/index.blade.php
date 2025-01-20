@@ -22,17 +22,33 @@
                         <thead>
                             <tr>
                                 <th>Nama Barang</th>
-                                <th>Kategori Barang</th>
-                                <th>Kuantitas Barang Saat Ini</th>
+{{--                                <th>Kategori Barang</th>--}}
+                                <th>Perubahan Kuantitas</th>
+{{--                                <th>Kuantitas Barang Saat Ini</th>--}}
+                                <th>Waktu</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($transactions as $transaction)
-                                <tr>
-                                    <td>{{ $transaction->details[0]->product->name }}</td>
-                                    <td>{{ $transaction->details[0]->product->category->name }}</td>
-                                    <td>{{ $transaction->details[0]->product->quantity }}</td>
-                                </tr>
+                            @foreach ($datas as $transaction)
+                                @if ($transaction->details)
+                                    @foreach ($transaction->details as $detail)
+                                        <tr>
+                                            <td>{{ $detail->product->name ?? $transaction->name }}</td>
+{{--                                            <td>{{ $detail->product->category->name ?? '-' }}</td>--}}
+                                            <td>{{ isset($detail->quantity) ? '- ' . $detail->quantity : '+ ' . $transaction->quantity }}</td>
+{{--                                            <td>{{ $detail->product->quantity ?? 0 }}</td>--}}
+                                            <td>{{ $transaction->created_at }}</td>
+                                        </tr>
+                                  @endforeach
+                                @else
+                                    <tr>
+                                        <td>{{ $transaction->details[0]->product->name ?? $transaction->name }}</td>
+{{--                                        <td>{{ $transaction->details[0]->product->category->name ?? '-' }}</td>--}}
+                                        <td>{{ isset($transaction->details[0]->quantity) ? '- ' . $transaction->details[0]->quantity : '+ ' . $transaction->quantity }}</td>
+{{--                                        <td>{{ $transaction->details[0]->product->quantity ?? 0 }}</td>--}}
+                                        <td>{{ $transaction->created_at }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </x-table>
