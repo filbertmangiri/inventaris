@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,11 +15,11 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::where('name', 'Customer')->first();
+        $role = Role::where('name', 'Super Admin')->first();
 
         $user = User::create([
-            'name' => 'User',
-            'email' => 'user@gmail.com',
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
             'department' => 'Umum',
         ]);
